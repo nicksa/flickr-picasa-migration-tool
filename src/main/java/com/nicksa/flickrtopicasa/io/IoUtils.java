@@ -16,22 +16,31 @@
 
 package com.nicksa.flickrtopicasa.io;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class Main {
+import org.springframework.util.FileCopyUtils;
 
-	public Main() throws Throwable {
+public class IoUtils {
+
+	public IoUtils() throws Throwable {
 
 	}
 
-	public void copy(String from, String to) throws Throwable {
+	public static void copyFile(String from, String to) throws Throwable {
 		File sourceFile = new File(from);
 		File toFile = new File(to);
+		
+		copyFile(sourceFile, toFile);
 
+	}
+	
+	public static void copyFile(File sourceFile, File toFile) throws Throwable {
 		// Does the source file exist?
 		if (!sourceFile.exists()) {
 			throw new IllegalStateException("Source file does not exist.");
@@ -43,34 +52,16 @@ public class Main {
 		}
 
 		// Does the destination path already exist on the filesystem?
-		if (!toFile.exists()) {
-			boolean successInMakingDirectory = toFile.getParentFile().mkdirs();
+		File parentDirectory = toFile.getParentFile();
+		if (!parentDirectory.exists()) {
+			boolean successInMakingDirectory = parentDirectory.mkdirs();
 			if (!successInMakingDirectory) {
 				throw new IllegalStateException("Could not create directories.");
 			}
 		}
 
 		// Start copying.
-		InputStream in = new FileInputStream(sourceFile);
-		OutputStream out = new FileOutputStream(toFile);
-
-		byte[] buf = new byte[1024];
-		int len;
-		while ((len = in.read(buf)) > 0) {
-			out.write(buf, 0, len);
-		}
-		in.close();
-		out.close();
-	}
-
-	public static void main(String[] args) throws Throwable {
-		String image = new String(
-				"C:/Users/Nicksa/Desktop/suspicious-supermarket.jpg");
-		String destination = new String(
-				"C:/Users/Nicksa/Desktop/destination/newfile.jpg");
-		Main main = new Main();
-		main.copy(image, destination);
-
+		FileCopyUtils.copy(sourceFile, toFile);		
 	}
 
 }
