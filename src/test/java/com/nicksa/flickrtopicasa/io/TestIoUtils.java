@@ -16,67 +16,66 @@
 
 package com.nicksa.flickrtopicasa.io;
 
-import java.io.File;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
+
+import java.io.File;
 
 public class TestIoUtils {
-	File in;
-	File out;
-	File extraSubdirectory;
-	String tempDir = System.getProperty("java.io.tmpdir");
-	String pathDir = System.getProperty("user.dir") ;
-		
-	@Test
-	public void testCopyFileToDirectory() throws Throwable {
-		IoUtils.copyFile(in, out.getParentFile());
-		File x = new File(tempDir, in.getName());
-		Assert.assertTrue(x.exists());
-	}
-	
-	@Test
-	public void testCopyFileRename() throws Throwable {
-		IoUtils.copyFile(in, out);
-		Assert.assertTrue(out.exists());
-	}
-	
-	@Test
-	public void testCopyFileToNonexistentDirectory() throws Throwable {
-		Assert.assertFalse(extraSubdirectory.exists());
-		IoUtils.copyFile(in, extraSubdirectory);
-		Assert.assertTrue(extraSubdirectory.exists());
-	}
-	
-	@Before
-	public void setUp() {
-		reset();
-	}
-	
-	@After
-	public void tearDown() {
-		reset();
-	}
-	
-	void reset() {
-		in = new File(pathDir, "/src/test/resources/suspicious-supermarket.jpg");
-		out = new File(tempDir, "newfile.jpg");
-		if(out.exists()) {
-			boolean deleted = out.delete();
-			Assert.assertTrue(deleted);
-		}
-		
-		extraSubdirectory = new File(tempDir, "/foo/foo.jpg");
-		if(extraSubdirectory.exists()) {
-			boolean deleted = extraSubdirectory.delete();
-			Assert.assertTrue(deleted);
-		}
-		if(extraSubdirectory.getParentFile().exists()) {
-			boolean deleted = extraSubdirectory.getParentFile().delete();
-			Assert.assertTrue(deleted);
-		}
-	}
-	
+    File in;
+    File out;
+    File extraSubdirectory;
+    String tempDir = System.getProperty("java.io.tmpdir");
+    String pathDir = System.getProperty("user.dir");
+
+    @Test
+    public void testCopyFileToDirectory() throws Throwable {
+        IoUtils.copyFile(in, out.getParentFile());
+        File x = new File(tempDir, in.getName());
+        Assert.assertTrue(x.exists());
+    }
+
+    @Test
+    public void testCopyFileRename() throws Throwable {
+        IoUtils.copyFile(in, out);
+        Assert.assertTrue(out.exists());
+    }
+
+    @Test
+    public void testCopyFileToNonexistentDirectory() throws Throwable {
+        Assert.assertFalse(extraSubdirectory.exists());
+        IoUtils.copyFile(in, extraSubdirectory);
+        Assert.assertTrue(extraSubdirectory.exists());
+    }
+
+    @Before
+    public void setUp() {
+        reset();
+    }
+
+    @After
+    public void tearDown() {
+        reset();
+    }
+
+    void reset() {
+        in = new File(pathDir, "/src/test/resources/suspicious-supermarket.jpg");
+        out = new File(tempDir, "newfile.jpg");
+        if (out.exists()) {
+            boolean deleted = out.delete();
+            Assert.assertTrue(deleted);
+        }
+
+        extraSubdirectory = new File(tempDir, "/foo/foo.jpg");
+        if (extraSubdirectory.exists()) {
+            boolean deleted = extraSubdirectory.delete();
+            Assert.assertTrue(deleted);
+        }
+        if (extraSubdirectory.getParentFile().exists()) {
+            boolean deleted = extraSubdirectory.getParentFile().delete();
+            Assert.assertTrue(deleted);
+        }
+    }
 }

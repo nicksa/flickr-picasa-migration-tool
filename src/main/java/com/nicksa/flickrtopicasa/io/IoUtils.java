@@ -16,20 +16,23 @@
 
 package com.nicksa.flickrtopicasa.io;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import org.springframework.util.FileCopyUtils;
 
-public class IoUtils {
+import java.io.File;
 
-	public IoUtils() throws Throwable {
+/**
+ * Utilities that are more defensive than a lot of other libraries and that
+ * handle a lot of nuanced use cases.
+ *
+ * @author nicksa
+ *
+ */
+abstract public class IoUtils {
 
+    /**
+     * Nobody should ever need to instantiate this class, so we hide the constructor.
+     */
+	private IoUtils(){
 	}
 
 	public static void copyFile(String from, String to) throws Throwable {
