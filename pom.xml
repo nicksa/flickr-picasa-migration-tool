@@ -38,8 +38,6 @@
             </dependency>
 
 
-            <!-- FastInfoSet -->
-
             <dependency>
                 <groupId>org.xerial.snappy</groupId>
                 <artifactId>snappy-java</artifactId>
